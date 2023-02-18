@@ -4,10 +4,10 @@ import java.util.Scanner;
 public class Board_Game_System {
     public static void main(String[] args)
     {
-        Player p1 = new Player("Ahmed Ashraf", 'O') ;
-        System.out.println(p1.get_name()) ;
-        System.out.println(p1.get_symbol()) ;
-
+        Player p1 = new Player(1, 'X') ;
+        int x , y ; 
+        p1.get_move(x, y);
+        System.out.println( x + " " +  y) ; 
     }
 }
 
@@ -17,33 +17,46 @@ public class Board_Game_System {
 class Player
 {
     // attributes
-    private String name ;
-    private char symbol ;
-    protected int row ;
-    protected int col ;
-
+    protected String name ;
+    protected char symbol ;
     // default constructor
-    public Player(String nm ,char smbl)
+
+    Scanner input = new Sacnner(System.in) ;
+
+    // given a symbol to computer player
+    public player(char symbol)
     {
-        name = nm ; 
-        symbol = smbl ; 
+        this.symbol =symbol ;
     }
 
-    // get a move on the board form player
-    public void get_move(int x , int y)
+
+    // a constructor to gave a player an intial ID and symbol
+
+    public player(int ID , char symbol)
     {
-        row = x ;
-        col = y ;
+        System.out.println("Welcome Player " + ID + "\nPlease Enter Your name: "  ) ;
+        name = input.next() ;
+        this.symbol = symbol ;
     }
 
-    // getting player name
-    public String get_name(){
-        return name ;
+    public void get_move(int x ,int y)
+    {
+        x = input.nextInt() ;
+        y = input.nextInt() ;
     }
 
-    // getting player symbol
+    // get player info
+    public String get_info()
+    {
+        return "Player: " + name ;
+    }
+
+    // get symbol
     public char get_symbol()
     {
-        return symbol ;
+        return symbol; 
     }
+
+
+    
 }
