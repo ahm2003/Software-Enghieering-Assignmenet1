@@ -56,7 +56,39 @@ class Player
     {
         return symbol; 
     }
+}
 
 
-    
+public class Game {
+    // attributes
+     Board board = new Board(3);
+     player players[] = new player[2];
+     int turn = 0, x ,y;
+    // manage function
+     public void play_game()
+    {
+        players[0] = new player(1 , 'x');
+        players[1] = new player(2 , 'o');
+        board.display_board();
+        while(true)
+        {
+            for (int i = 0 ; i <= 1; i++) {
+                players[i].get_move(x, y);
+                //check valid place
+                while (!board.updateBoard(x,y,players[i].get_symbol())){
+                    players[i].get_move(x, y);
+                }
+                board.display_board();
+                //check who win
+                if (board.is_winner()){
+                    System.out.println(players[i].get_info() + " wins\n");
+                    return;
+                }
+                else if (board.is_draw()){
+                    System.out.println("Draw!\n");
+                    return;
+                }
+            }
+        }
+    }
 }
