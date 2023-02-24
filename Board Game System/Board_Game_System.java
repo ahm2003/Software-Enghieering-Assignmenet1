@@ -2,12 +2,12 @@ import java.util.Scanner;
 
 // main class
 public class Board_Game_System {
-    public static void main(String[] args)
-    {
-        Player p1 = new Player(1, 'X') ;
-        int x , y ; 
-        p1.get_move(x, y);
-        System.out.println( x + " " +  y) ; 
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        Board bord = new Board(3);
+        player[] players = new player[2];
+        Game game = new Game();
+        game.play_game();
     }
 }
 
@@ -59,32 +59,37 @@ class Player
 }
 
 
+import java.util.Scanner;
+
 public class Game {
-    // attributes
-     Board board = new Board(3);
-     player players[] = new player[2];
-     int turn = 0, x ,y;
-    // manage function
-     public void play_game()
+    Board board = new Board(3);
+    player players[] = new player[2];
+    int turn = 0, x ,y;
+    public void play_game()
     {
         players[0] = new player(1 , 'x');
         players[1] = new player(2 , 'o');
         board.display_board();
+        Scanner in = new Scanner(System.in);
+        int x,y;
+
         while(true)
         {
+
             for (int i = 0 ; i <= 1; i++) {
+                System.out.println("Enter Valid Index "+players[i].get_info());
+                x=in.nextInt();
+                y=in.nextInt();
                 players[i].get_move(x, y);
-                //check valid place
                 while (!board.updateBoard(x,y,players[i].get_symbol())){
                     players[i].get_move(x, y);
                 }
                 board.display_board();
-                //check who win
                 if (board.is_winner()){
-                    System.out.println(players[i].get_info() + " wins\n");
+                    System.out.println(players[i].get_info() + " won\n");
                     return;
                 }
-                else if (board.is_draw()){
+                if (board.is_draw()){
                     System.out.println("Draw!\n");
                     return;
                 }
@@ -92,6 +97,8 @@ public class Game {
         }
     }
 }
+
+
 public class Board{
     protected int BordSz ;
     protected char board [][];
